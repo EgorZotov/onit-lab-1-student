@@ -36,7 +36,13 @@ import {withRouter} from "react-router-dom";
 /*Класс компонента*/
 export default withRouter(Me);
 ```
-
+4) Добавить проброс кук в AJAX запросы в файл `requester.js`
+```javascript
+export default axios.create({
+    baseURL: "http://localhost:1377/api",
+    withCredentials: true,
+});
+```
 
 ### Server Side
 1) Объявить константу с именем куки для передачи токена в `utils/const.js`
@@ -94,5 +100,15 @@ router.get("/me", async (req, res) => { //метод возвраащает пр
     } catch (err) {
         console.error(err)
     }
+});
+```
+5) Добавить обработку кук в CORS в `app.js`
+```javascript
+app.all("/api/*", function(req, res, next) { 
+res.header('Access-Control-Allow-Credentials', true); 
+res.header("Access-Control-Allow-Origin", "http://localhost:3000"); 
+res.header("Access-Control-Allow-Headers", "Cache-Control, Pragma, Origin, Authorization, Content-Type, X-Requested-With"); 
+res.header("Access-Control-Allow-Methods", "GET, PUT, POST"); 
+return next(); 
 });
 ```
