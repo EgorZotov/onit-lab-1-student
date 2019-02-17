@@ -41,7 +41,7 @@ export default withRouter(Me);
 ### Server Side
 1) Объявить константу с именем куки для передачи токена в `utils/const.js`
 ```javascript
-const AUTH_COOKIE_NAME = "X-AUTH_COOKIE";
+const AUTH_COOKIE_NAME = "X-AUTH-COOKIE";
 
 module.exports = {
     AUTH_COOKIE_NAME,
