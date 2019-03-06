@@ -27,5 +27,17 @@ UserSchema.methods.getJwtToken = function () {
     // секрет лежит здесь process.env.JWT_TOKEN_SECRET
 };
 
+
+UserSchema.methods.editSelf = async function (fields) {
+    // Необходимо отредактировать только поля, включённые в массив editable_fields
+    // Для этого можно использовать конструкцию for..in для итерирования объекта editable_fields
+    // И метод Array.includes(value) для проверки наличия знаения в массиве
+    const editable_fields = ['first_name', 'last_name'];
+    // Текущий документ пользователя доступен в контексте this
+    // чтобы забисать ему новое значение поля нужно сделать так: this.first_name = "Иван";
+    // Затем нужно вызвать метод this.save(), чтобы сохранить данные в БД
+    return this;
+};
+
 var User = mongoose.model("User", UserSchema);
 module.exports = User;

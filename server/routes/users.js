@@ -52,5 +52,21 @@ router.get("/me", async (req, res) => { //метод возвраащает пр
     }
 });
 
-module.exports = router;
+router.post("/me", async (req, res) => {
+    console.log("req.user me", req.user);
+    if (!req.user._id) {
+        res.json({ status: "error", error: "Индетификатор пользователя не найден" });
+        return
+    }
 
+    try {
+        let user = await User.findOne({ _id: req.user._id });
+        //Метод editSelf должен перезаписать все поля и вернуть новый объект пользователя
+        user = await user.editSelf(req.body);
+        res.json({ status: "ok", user });
+    } catch (err) {
+        console.error(err)
+    }
+});
+
+module.exports = router;
